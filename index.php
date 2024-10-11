@@ -11,10 +11,35 @@
     <div class="container">
         <h1><i class="vlogo">v</i> Tipšpit</h1>
         <p>Jak dopadne letošní florbalový turnaj? Tipni si a vyhraj! Stačí si u maturantů koupit vstupní kód a můžeš všem ukázat, že máš hru přečtenou.</p>
+        <?php
+            if(isset($_POST["entry_code"]))
+            {
+                if(validate_entry_code($_POST["entry_code"]))
+                {
+                    session_start();
+                    $_SESSION["entry_code"] = $_POST["entry_code"];
+                    header("Location: home.php");
+                    die();
+                }
+                else
+                {
+                   echo '<div class="alert alert-warning" role="alert">Neplatný vstupní kód ):</div>';
+                }
+            }
+
+            function validate_entry_code($entry_code)
+            {
+                if($entry_code == "ok")
+                {
+                    return true;
+                }
+                return false;
+            }
+        ?>
         <form method="post">
             <div class="mb-3">
-                <label for="entryCode" class="form-label">Vstupní kód</label>
-                <input type="text" class="form-control" id="entryCode" placeholder="AAA0000">
+                <label for="entry_code" class="form-label">Vstupní kód</label>
+                <input type="text" class="form-control" id="entry_code" name="entry_code" placeholder="AAA0000">
             </div>
             <button type="submit" class="btn btn-primary">Začít tipovat!</button>
         </form>
