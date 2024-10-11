@@ -29,11 +29,9 @@
 
             function validate_entry_code($entry_code)
             {
-                if($entry_code == "ok")
-                {
-                    return true;
-                }
-                return false;
+                include "data/dao.php";
+                $dao = new Dao();
+                return $dao->login($entry_code);
             }
         ?>
         <form method="post">
