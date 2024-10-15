@@ -21,13 +21,37 @@
         <h3>Zápasy</h3>
         <form method="post">
             <?php
-            
-                echo '<button type="submit" class="btn btn-primary mb-3">Zápas1</button>';
+                include "data/dao.php";
+                $dao = new Dao();
+                $games = $dao->get_games($_SESSION["entry_code"]);
+                foreach($games as $game)
+                {
+                    //game card
+                    echo '<div class="card"><div class="card-body">';
+                    echo '<h5 class="card-title">'.$game["team_a"].' vs '.$game["team_b"].'</h5>';
+                    //different part according to state
+                    if($game["state"] == 0 && $game["goals_a"] == null)
+                    {
+                        echo '<button type="submit" class="btn btn-primary mb-3">Tipnout</button>';
+                    }
+                    else if($game["state"] < 2)
+                    {
+                        echo '<h6 class="card-subtitle mb-2 text-body-secondary">Můj tip</h6>';
+                    }
+                    else
+                    {
+                        echo '<h6 class="card-subtitle mb-2 text-body-secondary">Můj tip</h6>';
+                        echo '<h6 class="card-subtitle mb-2 text-body-secondary">Výsledek</h6>';
+                    }
+
+                    echo '</div></div>';
+                }
             ?>
         </form>
         <h3>Účet</h3>
         <?php
-            echo '<p>Vstupní kód: '.'</p>';
+            echo '<p>Vstupní kód: '.$_SESSION["entry_code"].'</p>';
+            echo '<p>Jméno: '.$_SESSION["entry_code"].'</p>';
             echo '<p>Celkem bodů: '.'</p>';
         ?>
         <button class="btn btn-primary mb-3">Přidat jméno</button>
