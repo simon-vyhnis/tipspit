@@ -47,7 +47,7 @@
                     //different part according to state
                     if($game["state"] == 0)
                     { 
-                        echo '<script>console.log("closing game'.var_dump($game).'")</script>';       
+                        echo '<script>console.log("'.$game["id"].'")</script>';       
                         echo '<form method="post">';
                         echo '<input type="hidden" id="close" name="close" value="'.$game["game_id"].'">';
                         echo '<button type="submit" class="btn btn-primary mb-3">Uzavřít tipovaní</button>';
@@ -90,6 +90,8 @@
             </div>
             <button type="submit" class="btn btn-primary">Přidat</button>
         </form>
+        <h3>Výsledky</h3>
+        <a href="/results.php">Zde</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

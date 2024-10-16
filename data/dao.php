@@ -15,7 +15,7 @@
             }
         }
 
-        public function login($entry_code) : int 
+        public function login($entry_code) : bool 
         {
             $get_code = $this->pdo->prepare("SELECT * FROM account WHERE entry_code = ?");
             $get_code->execute(array($entry_code));
@@ -62,6 +62,13 @@
                 $add_result_query = $this->pdo->prepare("INSERT INTO result (game, account, goals_a, goals_b) VALUES (?,?,?,?)");
                 $add_result_query->execute(array($game, $account, $goals_a, $goals_b));
             }
+        }
+
+        public function get_accounts()
+        {
+            $get_accounts = $this->pdo->prepare("SELECT * FROM account");
+            $get_accounts->execute();
+            return $get_accounts->fetchAll();
         }
     }
 ?>

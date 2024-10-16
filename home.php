@@ -31,22 +31,7 @@
             $dao->add_tip($_POST["result"], $_SESSION["entry_code"], $_POST["goals_a"], $_POST["goals_b"]);
         }
 
-        function count_points($result_a, $result_b, $tip_a, $tip_b)
-        {
-            if($result_a == $tip_a && $result_b == $tip_b)
-            {
-                return 10;
-            }
-            else if($result_a - $result_b == $tip_a - $tip_b)
-            {
-                return 7;
-            }
-            else if(($result_a > $result_b && $tip_a > $tip_b) || ($result_a < $result_b && $tip_a < $tip_b))
-            {
-                return 2;
-            }
-            return 0;
-        }
+        include "evaluator.php";
     ?>
     <div class="container">
         <br>
