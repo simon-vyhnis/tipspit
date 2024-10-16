@@ -48,10 +48,20 @@
             $add_result_query->execute(array($goals_a, $goals_b, $game));
         }
 
+        public function exists_tip($game, $account) : bool
+        {
+            $get_tip = $this->pdo->prepare("SELECT * FROM result WHERE game=? AND account = ?");
+            $get_tip->execute(array($game, $account));
+            return count($get_tip->fetchAll()) > 0;
+        }
+
         public function add_tip($game, $account, $goals_a, $goals_b)
         {
-            $add_result_query = $this->pdo->prepare("INSERT INTO result goals_a = ?, goals_b = ?, state=2 WHERE id = ?");
-            $add_result_query->execute(array($goals_a, $goals_b, $game));
+            if(!$this->exists_tip($game, $account))
+            {
+                $add_result_query = $this->pdo->prepare("INSERT INTO result (game, account, goals_a, goals_b) VALUES (?,?,?,?)");
+                $add_result_query->execute(array($game, $account, $goals_a, $goals_b));
+            }
         }
     }
 ?>
