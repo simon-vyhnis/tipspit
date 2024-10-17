@@ -70,5 +70,18 @@
             $get_accounts->execute();
             return $get_accounts->fetchAll();
         }
+
+        public function add_name($entry_code, $name)
+        {
+            $add_name_query = $this->pdo->prepare("UPDATE account SET name=? WHERE entry_code = ?");
+            $add_name_query->execute(array($name, $entry_code));
+        }
+
+        public function get_name($entry_code) : string 
+        {
+            $get_name_query = $this->pdo->prepare("SELECT name FROM account WHERE entry_code = ?");
+            $get_name_query->execute(array($entry_code));
+            return $get_name_query->fetchColumn();
+        }
     }
 ?>

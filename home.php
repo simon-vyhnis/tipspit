@@ -15,9 +15,15 @@
             header("Location: index.php");
             die();
         }
+        if(!isset($_SESSION["name"]))
+        {
+            header("Location: name.php");
+            die();
+        }
         if(isset($_POST["logout"]))
         {
             $_SESSION["entry_code"] = null;
+            $_SESSION["name"] = null;
             header("Location: index.php");
             die();
         }
@@ -109,7 +115,7 @@
             <div class="card-body">
                 <?php
                     echo '<p>Vstupní kód: '.$_SESSION["entry_code"].'</p>';
-                    echo '<p>Jméno: '.$_SESSION["entry_code"].'</p>';
+                    echo '<p>Jméno: '.$_SESSION["name"].'</p>';
                     echo '<p>Celkem bodů: '.$account_points.'</p>';
                 ?>
                 <br>

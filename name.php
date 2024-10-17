@@ -12,40 +12,34 @@
         <br>
         <h1><i class="vlogo">v</i> Tipšpit</h1>
         <br>
-        <p>Jak dopadne letošní florbalový turnaj? Tipni si a vyhraj! Stačí si u maturantů koupit vstupní kód a můžeš všem ukázat, že máš hru přečtenou.</p>
+        <p>Než začneš tipovat, přidej prosím svoje jméno.</p>
         <?php
-            if(isset($_POST["entry_code"]))
-            {
-                if($_POST["entry_code"] == "florbalovybuh")
-                {
-                    session_start();
-                    $_SESSION["entry_code"] = $_POST["entry_code"];
-                    header("Location: admin.php");
-                    die();
-                }   
-                else if(validate_entry_code($_POST["entry_code"]))
-                {
-                    session_start();
-                    $_SESSION["entry_code"] = $_POST["entry_code"];
-                    header("Location: name.php");
-                    die();
-                }
-                else
-                {
-                   echo '<div class="alert alert-warning" role="alert">Neplatný vstupní kód ):</div>';
-                }
-            }
-
-            function validate_entry_code($entry_code)
+            session_start();
+            if(isset($_SESSION["entry_code"]))
             {
                 include "data/dao.php";
                 $dao = new Dao();
-                return $dao->login($entry_code);
+                $name = $dao->get_name($_SESSION["entry_code"]);
+                if($name != null && $name != "")
+                {
+                    $_SESSION["name"] = $name;
+                    header("Location: home.php");
+                    die();
+                }
+                if(isset($_POST["name"]) && $_POST["name"] != "")
+                {
+                   $dao->add_name($entry_code, $name);
+                }
+            }
+            else
+            {
+                header("Location: index.php");
+                die();
             }
         ?>
         <form method="post">
             <div class="mb-3">
-                <label for="entry_code" class="form-label">Vstupní kód</label>
+                <label for="entry_code" class="form-label">Jméno</label>
                 <input type="text" class="form-control" id="entry_code" name="entry_code" placeholder="AAA0000">
             </div>
             <button type="submit" class="btn btn-primary">Začít tipovat!</button>

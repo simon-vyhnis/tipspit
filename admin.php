@@ -35,7 +35,9 @@
         }
     ?>
     <div class="container">
+        <br>
         <h1><i class="vlogo">v</i> Tipšpit administrace</h1>
+        <br>
         <h3>Zápasy</h3>
             <?php
                 $games = $dao->get_games($_SESSION["entry_code"]);
@@ -88,8 +90,9 @@
                 <label for="team_b" class="form-label">Tým 2</label>
                 <input type="text" class="form-control" id="team_b" name="team_b" placeholder="Sekunda">
             </div>
-            <button type="submit" class="btn btn-primary">Přidat</button>
+            <button type="submit" class="btn btn-primary mb-2">Přidat</button>
         </form>
+        <br>
         <h3>Výsledky</h3>
         <a href="/results.php">Zde</a>
     </div>
